@@ -97,7 +97,8 @@ Downloads specific objects.
 git branch -r
 Lists the remote branches.
 
-
+git push origin <branch>
+Pushes the branch from the local repo to the remote repo.
 
 
 

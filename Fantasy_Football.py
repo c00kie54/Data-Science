@@ -12,6 +12,7 @@ from players1819_clean import data_clean1819
 from json_clean18 import json_clean18
 from data1819_merge import data1819_merge
 from fixtures18_clean import fix18_clean
+from players1920_clean import player1920_clean
 
 # Lets load the 2018/2019 player data. 
 name = '/Users/alexcooke/Desktop/Player_Prices/players_1819.csv'
@@ -39,3 +40,13 @@ fixtures1819 = data_read(name)
 
 # Cleaning the Fixtures for 2018/2019 season
 fixtures1819 = fix18_clean(fixtures1819)
+
+# Now take the fixtures data and combine with the player data
+
+
+# Load in the 2019/2020 player data
+name = '/Users/alexcooke/Desktop/Player_Prices/players_1920_fin.csv'
+player1920 = data_read(name)
+
+# Clean the 2019/2020 player data
+player1920 = player1920_clean(player1920)

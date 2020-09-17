@@ -1,6 +1,6 @@
 #This script will clean the data
 
-def data_clean(Players18):
+def data_clean1819(Players18):
     #First bit will clean the 2018/2019 season data
     Players18['name'] = Players18['name'].astype(str).str[:-3] #Removing the last 3 digits from player name.
     Players18 = Players18.replace({'_':' '}, regex=True) #Removing the _ from player name.
@@ -126,5 +126,6 @@ def data_clean(Players18):
 
     ## Removing Players that played 0 minutes
     Players18 = Players18[Players18.minutes != 0]
+    print('Players 2018/2019 cleaned')
     return Players18
 

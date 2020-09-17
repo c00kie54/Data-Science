@@ -1,4 +1,5 @@
 #This file will contain the function to load data.
+import pandas as pd
 
 def data_read(name): 
     data =pd.read_csv(name)

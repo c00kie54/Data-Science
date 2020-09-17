@@ -47,5 +47,6 @@ def data1819_merge(Players1819,json1819):
     data1819.loc[data1819["name"]=="StuartArmstrong", "Position"] = 'Midfielder'
     data1819.loc[data1819["name"]=="YouriTielemans", "Club"] = 'LeicesterCity'
     data1819.loc[data1819["name"]=="YouriTielemans", "Position"] = 'Midfielder'
-    players = players.dropna()
+    data1819 = data1819.dropna()
+    print('2018/2019 datasets have been merged and cleaned')
     return data1819

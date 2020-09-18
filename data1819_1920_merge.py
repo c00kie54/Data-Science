@@ -31,9 +31,8 @@ def data_merge(data1819, data1920):
                                 'target_missed',
                                 'value',
                                 'winning_goals',
-                                'GW',
-                
-                               ],axis=1)
-    frames = [data1819,data11920]
-    player_data = pd.concat(frames)
+                                'GW'],axis=1)
+    
+    #player_data = pd.concat(data1819,data1920)
     return player_data
+

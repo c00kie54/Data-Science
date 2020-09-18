@@ -15,7 +15,8 @@ from fixtures18_clean import fix18_clean
 from players1920_clean import player1920_clean
 from fixtures1920_clean import fix1920_clean
 from matchweek1920_clean import mw1920_clean
-from fixt_mw_merge import fix_mw1920
+from fixt_mw_merge import fix_mw2021
+from data1819_1920_merge import data_merge
 
 # Lets load the 2018/2019 player data. 
 name = '/Users/alexcooke/Desktop/Player_Prices/players_1819.csv'
@@ -55,7 +56,7 @@ player1920 = player1920_clean(player1920)
 name = '/Users/alexcooke/Desktop/Player_Prices/fixtures.csv'
 fixtures1920 = data_read(name)
 
-# Load the matchweeks foro 2018/2020
+# Load the matchweeks foro 2019/2020
 name = '/Users/alexcooke/Desktop/Player_Prices/Matchweeks.csv'
 matchweeks1920 = data_read(name)
 
@@ -65,12 +66,14 @@ fixtures1920 = fix1920_clean(fixtures1920)
 # Clean the matchweeks for 2019/2020
 matchweeks1920 = mw1920_clean(matchweeks1920)
 
-# Setting the matchweeks for each date. 
-fix_mw1920(fixtures1920,matchweeks1920) # This needs sorting.. Only first half of season works... fine for now we shall continue. 
+# Setting the matchweeks for each date in 2020/2021 season. 
+fixtures2021 = fix_mw2021(fixtures1920,matchweeks1920)
 print(fixtures1920)
 
+#Merge the 2018/2019 and 2019/2020 datasets
+player_data = data_merge(data1819, player1920)
 
-print('player1920')
+print(data1819)
+print(player1920)
+print(data1819.columns)
 print(player1920.columns)
-print('player1819')
-print(player1819.columns)

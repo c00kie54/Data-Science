@@ -49,4 +49,27 @@ def data1819_merge(Players1819,json1819):
     data1819.loc[data1819["name"]=="YouriTielemans", "Position"] = 'Midfielder'
     data1819 = data1819.dropna()
     print('2018/2019 datasets have been merged and cleaned')
+    data1819['opponent_team'] = data1819['opponent_team'].astype(str) 
+    data1819['opponent_team'] = data1819.opponent_team.replace({'20':'WolverhamptonWanderers',
+                                                    '19':'WestHamUnited',
+                                                    '18':'Watford',
+                                                    '17':'TottenhamHotspur',
+                                                    '16':'Southampton',
+                                                    '15':'NewcastleUnited',
+                                                    '14':'ManchesterUnited',
+                                                    '13':'ManchesterCity',
+                                                    '12':'Liverpool',
+                                                    '11':'LeicesterCity',
+                                                    '10':'HuddersfieldTown',
+                                                    '9':'Fulham',
+                                                    '8':'Everton',
+                                                    '7':'CrystalPalace',
+                                                    '6':'Chelsea',
+                                                    '5':'CardiffCity',
+                                                    '4':'Burnley',
+                                                    '3':'BrightonandHoveAlbion',
+                                                    '2':'AFCBournemouth',
+                                                    '1':'Arsenal' ,                       
+
+                                                   }, regex=True)
     return data1819

@@ -24,7 +24,7 @@ def data_merge(data1819, data1920):
                                 'offside',
                                 'open_play_crosses',
                                 'penalties_conceded',
-                                'recoveries'
+                                'recoveries',
                                 'selected',
                                 'tackled',
                                 'tackles',

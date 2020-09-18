@@ -1,4 +1,4 @@
-#This file will contain the function to load data.
+#This file will contain the function to load CSV data.
 import pandas as pd
 
 def data_read(name): 

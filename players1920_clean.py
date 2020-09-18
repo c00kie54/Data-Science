@@ -5,7 +5,6 @@ def player1920_clean(player1920):
                             'fixture',
                           'ict_index',
                           'kickoff_time',
-                          'round',
                           'selected',
                           'ppm',
                             'bps',

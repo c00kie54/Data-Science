@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Fantasy Football Prediction - Part 1 
+# # Fantasy Football Prediction
 
 # ### By Alex Cooke
 
 # This project aims to predict fantasy football points for players in the Premier League using historical data.
 # 
-# Part 1 will involve loading the correct datasets and cleaning the data ready for data exploration. 
+# So far the project has loaded the correct datasets and cleaned the data ready for data exploration. 
 # 
 
 # ### Table of Contents
@@ -17,10 +17,12 @@
 # * [Loading Data](#chapter2)
 # * [Cleaning data](#chapter3)
 #     * [Player 2018/2019 data](#Section_3_1)
-#     * [Player 2019/2020 data](Section_3_2)
-#     * [2020/2021 Fixtures](#Section_3_1)
-# 
-# 
+#     * [Cleaning JSON 2018/2019 data](Section_3_2)
+#     * [Cleaning Player 2018/2019 after merge](#Section_3_3)
+#     * [Cleaning Player 2019/2020 data  ](#Section_3_4)
+#     * [Clean the 2020/2021 fixtures](#Section_3_5)
+#     * [Clean the 2020/2021 matchweek](#Section_3_6)
+#     * [Clean the 2020/2021 fantasy player data](#Section_3_7)
 
 # ### Importing Packages  <a class="anchor" id="chapter1"></a>
 
@@ -63,10 +65,13 @@ def json_load(json_name):
 
 player1819 = data_read('/Users/alexcooke/Desktop/Player_Prices/players_1819.csv') # 2018/2019 player data CSV
 json1819 = json_load('/Users/alexcooke/Desktop/Player_Prices/fpl_data_2018_2019.json') # 2019/2019 player data JSON
-fixtures1819 = data_read('/Users/alexcooke/Desktop/Player_Prices/Fixtures_1819.csv') # 2018/2019 fixtures CSV
 player1920 = data_read('/Users/alexcooke/Desktop/Player_Prices/players_1920_fin.csv') # 2019/2020 player data CSV
 fixtures2021 = data_read('/Users/alexcooke/Desktop/Player_Prices/fixtures.csv') # 2020/2021 fixtures CSV
 matchweeks2021 = data_read('/Users/alexcooke/Desktop/Player_Prices/Matchweeks.csv') # 2020/2021 matchweeks CSV
+GK_data = data_read('/Users/alexcooke/Desktop/Player_Prices/GK-Table 1.csv') # Load goalkeeper players + prices
+DF_data = data_read('/Users/alexcooke/Desktop/Player_Prices/DF-Table 1.csv') # Load defender players + prices
+MF_data = data_read('/Users/alexcooke/Desktop/Player_Prices/MF-Table 1.csv') # Load midfielders players + prices
+FW_data = data_read('/Users/alexcooke/Desktop/Player_Prices/FW-Table 1.csv') # Load forwards players + prices
 
 
 # Looking at the top rows and the columns of the data to decide how to clean.
@@ -98,49 +103,61 @@ json1819.columns
 # In[8]:
 
 
-fixtures1819.head()
+player1920.head()
 
 
 # In[9]:
 
 
-fixtures1819.columns
+player1920.columns
 
 
 # In[10]:
 
 
-player1920.head()
+fixtures2021.head()
 
 
 # In[11]:
 
 
-player1920.columns
+matchweeks2021.head()
 
 
 # In[12]:
 
 
-fixtures2021.head()
+GK_data.head()
 
 
 # In[13]:
 
 
-matchweeks2021.head()
+DF_data.head()
 
 
-# ### Cleaning Data  <a class="anchor" id="chapter3"></a>
+# In[14]:
 
-# **Player 2018/2019 data**
+
+MF_data.head()
+
+
+# In[15]:
+
+
+FW_data.head()
+
+
+# ## Cleaning Data  <a class="anchor" id="chapter3"></a>
+
+# ### Player 2018/2019 data   <a class="anchor" id="Section_3_1"></a>
 # - The player 2018/2019 has many columns that can be dropped as they are not needed.
 # - The data does not contain the players team or position therefore these will be taken from the json1819 file and merged.
 # - The player names have a underscores and numbers that need to be removed.
 # - Player names with diacritics have a symbol therefore these need to be replaced with the correct name.
 # - Players that played 0 minutes can be dropped.
 
-# In[14]:
+# In[16]:
 
 
 #Cleaning the 2018/2019 player data
@@ -309,17 +326,17 @@ player1819 = player1819[player1819.minutes != 0]
 print('Players 2018/2019 cleaned')
 
 
-# In[15]:
+# In[17]:
 
 
 player1819.head()
 
 
-# **JSON 2018/2019 data**
+# ### Cleaning JSON 2018/2019 data   <a class="anchor" id="Section_3_2"></a>
 # - Drop all columns except name, Club and position
 # - Merge with Player 2018/2019 data
 
-# In[16]:
+# In[18]:
 
 
 # Cleaning the 2018/2019 JSON data
@@ -333,18 +350,20 @@ player1819 = player1819.merge(json1819, how='left')
 print('JSON merged with player1819')
 
 
-# In[17]:
+# In[19]:
 
 
 player1819.head()
 
 
-# **Player 2018/2019 after merge**
+# ### Cleaning Player 2018/2019 after merge   <a class="anchor" id="Section_3_3"></a>
+# - Drop all columns except name, Club and position
+# - Merge with Player 2018/2019 data
 # - Some Clubs and positions are missing
 # - Empty rows will be dropped 
 # - Opponent team column in number format should be changed to team name
 
-# In[18]:
+# In[20]:
 
 
 # Cleaning the 2018/2019 player data after CSV and JSON merge
@@ -425,19 +444,19 @@ player1819['opponent_team'] = player1819.opponent_team.replace({'20':'Wolverhamp
                                                    }, regex=True)
 
 
-# In[19]:
+# In[21]:
 
 
 player1819.head()
 
 
-# **Clean the 2019/2020 player data**
+# ### Cleaning Player 2019/2020 data   <a class="anchor" id="Section_3_4"></a>
 #  - Drop columns that are not useful (should end up with the same as the 2018/2019 data).
 #  - Player names with diacritics have a symbol therefore these need to be replaced with the correct name.
 #  - Drop players that played 0 minutes.
 #  - Rename full to name and team to Club  
 
-# In[20]:
+# In[22]:
 
 
 ## Cleaning the 2019/2020 player data
@@ -604,31 +623,31 @@ player1920 = player1920[player1920.minutes != 0]
 player1920 = player1920.rename(columns={'full': 'name', 'team': 'Club'})
 
 
-# In[21]:
+# In[23]:
 
 
 player1920.head()
 
 
-# **Clean the 2020/2021 fixtures**
+# ### Clean the 2020/2021 fixtures  <a class="anchor" id="Section_3_5"></a>
 # - Set the game date to datetime
 # - Create blank Matchweek column
 
-# In[22]:
+# In[24]:
 
 
 fixtures2021['game_date']= pd.to_datetime(fixtures2021['game_date']) 
 fixtures2021['Matchweek']=''
 
 
-# **Clean the 2020/2021 matchweek**
+#  ### Clean the 2020/2021 matchweek  <a class="anchor" id="Section_3_6"></a>
 # - Convert months from strings to numbers
 # - Create year column
 # - Create match week start and end dates
 # - Set correct year for 2021 dates
 # - Merge with fixtures
 
-# In[23]:
+# In[25]:
 
 
 ## Cleaning 2020/2021 matchweek
@@ -659,7 +678,7 @@ matchweeks2021.Start[16:] = matchweeks2021.Start[16:] + pd.offsets.DateOffset(ye
 print('Matchweeks 2019/2020 cleaned')
 
 
-# In[24]:
+# In[26]:
 
 
 ## Merging matchweeks with fixtures
@@ -670,11 +689,28 @@ for i in range(39):
        
 
 
-# In[25]:
+# In[27]:
 
 
 fixtures2021.head()
 
+
+#  ### Clean the 2020/2021 fantasy player data  <a class="anchor" id="Section_3_7"></a>
+# - Remove unnamed column form FW_data
+
+# In[28]:
+
+
+FW_data = FW_data.drop(['Unnamed: 4'],axis=1)
+
+
+# In[29]:
+
+
+FW_data.head()
+
+
+# 
 
 # In[ ]:
 

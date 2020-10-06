@@ -1,17 +1,17 @@
 # Data-Science
 Repository containing all my leaning and development for data science. 
 
-Tree 1:
+GitHub:
 Contains all information and codes for GitHub.
 
-Tree 2: 
+IBM Data Science:
 Contains Coursera IBM Data Science Professional Certification Work
 
-Tree 3:
+Machine Learning:
 Contains Andrew Ng's Machine Learning Course
 
-Tree 4:
+Python: 
 Contains Project Management learning
 
-Tree 5:
+Projects:
 Portfolio projects
